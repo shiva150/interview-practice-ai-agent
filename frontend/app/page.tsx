@@ -30,7 +30,7 @@ export default function SetupPage() {
     </div>
   );
 
-  // --- 2. LANDING PAGE (LOGGED OUT) ---
+  // --- 2. LANDING PAGE (IF LOGGED OUT) ---
   if (!isSignedIn) return (
     <div className="min-h-screen bg-slate-950 text-white selection:bg-blue-500/30 relative overflow-hidden">
         {/* Ambient Background */}
