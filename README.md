@@ -9,7 +9,9 @@
 ## 1️⃣ **Executive Summary**
 
 Antriview is a **multi-modal, adaptive AI platform** designed to simulate **high-pressure job interviews**.  
+
 Unlike standard chatbots, Antriview operates as a **Goal-Driven Agentic System** with a **Voice-First architecture** and real-time **RAG (Retrieval Augmented Generation)**.  
+
 The system follows a **structured interview protocol**, adapts its personality (**Technical** vs **HR**), and provides **brutally honest** but constructive feedback.
 
 ---
@@ -60,6 +62,22 @@ To implement **Intelligent Agentic Behavior**, Antriview uses a cognitive OODA l
 ---
 
 ## 4️⃣ **Design Decisions & Trade-Offs**
+
+#### 1. Why a Hybrid (Next.js + Python) Stack?
+- Reasoning: While Next.js API routes are powerful, serious AI engineering requires the Python ecosystem. Libraries like LangChain, PyPDF, and ChromaDB have superior support in Python.
+
+- Decision: We separated concerns: Next.js handles the reactive view layer, while a dedicated Python FastAPI service handles the heavy computational reasoning.
+
+#### 2. Why Gemini 2.5 Flash Lite?
+- Reasoning: Voice interfaces live or die by latency. The average human pause gap is ~500ms. Standard models often average ~1.5s latency.
+
+- Decision: We selected Gemini 2.5 Flash Lite because it offers the best reasoning-to-speed ratio, consistently hitting sub-800ms response times.
+
+#### 3. Why Vapi.ai?
+- Reasoning: Building a raw WebRTC pipeline is complex regarding Interruption Handling.
+
+- Decision: Vapi provides out-of-the-box "barge-in" capability. If the candidate interrupts, the AI stops talking immediately. This is critical for realism.
+  
 
 | Area          | Reasoning/Trade-off                                                                         | Choice                           |
 |---------------|---------------------------------------------------------------------------------------------|----------------------------------|
@@ -165,5 +183,27 @@ Runs at http://localhost:3000
  Use the **Dashboard** to track progress, scores, and session history.
 
 ---
+## **Tested Scenarios**
 
+We have optimized the agent to handle specific user personas as requested:
+
+***The Confused User***:
+
+- Behavior: "I'm not sure about this question..."
+
+- Agent Response: Detects hesitation via Observer Agent -> Switches to Phase 3 (Adaptation) -> Offers a scaffolded hint based on Resume context.
+
+***The Efficient User***:
+
+- Behavior: Gives short, precise, correct answers.
+
+- Agent Response: Detects high competence -> Skips hints -> Immediately triggers Phase 5 (Deep Dive) to challenge the user.
+
+***The Chatty User***:
+
+- Behavior: Rambles off-topic.
+
+- Agent Response: Vapi's interruption handling allows the agent to politely interject and steer the conversation back to the Job Description.
+---
 **✨ Interview smarter, get honest feedback, and advance your career — with Antriview! ✨**
+
