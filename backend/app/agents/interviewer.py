@@ -10,7 +10,7 @@ async def generate_next_turn(history: list, last_user_response: str, job_descrip
     """
     
     # 1. RAG: Get relevant context from Vector DB
-    # Example: User says "I used React", we fetch the "React project" details from Resume.
+    # Example: User says "I used React", we fetch the "React project" details from the Resume.
     context_docs = retrieve_context(last_user_response)
     context_str = "\n".join(context_docs)
 
