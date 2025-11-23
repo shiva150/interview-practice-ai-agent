@@ -19,6 +19,7 @@ export default function SetupPage() {
   } = useInterview();
   
   const [isProcessing, setIsProcessing] = useState(false);
+  const [status, setStatus] = useState("Idle");
 
   useEffect(() => { if (!isProcessing) resetSession(); }, []); 
 
@@ -32,26 +33,70 @@ export default function SetupPage() {
   // --- 2. LANDING PAGE (LOGGED OUT) ---
   if (!isSignedIn) return (
     <div className="min-h-screen bg-slate-950 text-white selection:bg-blue-500/30 relative overflow-hidden">
+        {/* Ambient Background */}
         <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-emerald-600/10 rounded-full blur-[120px] pointer-events-none" />
 
+        {/* Hero Content */}
         <div className="max-w-6xl mx-auto px-6 py-24 text-center relative z-10">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/50 border border-slate-800 text-xs font-medium text-blue-400 mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
                 <Sparkles className="w-3 h-3" /> AI-Powered Interview Coach
             </div>
+            
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 animate-in fade-in slide-in-from-bottom-6 duration-1000">
                 Master Your Next <br />
-                <span className="bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">Interview with AI</span>
+                <span className="bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
+                    Interview with AI
+                </span>
             </h1>
+            
             <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-10 animate-in fade-in slide-in-from-bottom-8 duration-1000">
                 Antriview conducts realistic mock interviews, analyzes your resume, and provides brutal, data-driven feedback to help you get hired.
             </p>
+
             <SignInButton mode="modal">
                 <button className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-bold text-lg transition-all shadow-[0_0_40px_-10px_rgba(37,99,235,0.5)] hover:shadow-[0_0_60px_-15px_rgba(37,99,235,0.6)] hover:scale-105 animate-in fade-in slide-in-from-bottom-10 duration-1000">
                     Get Started <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </button>
             </SignInButton>
         </div>
+
+        {/* Features Grid */}
+        <div className="max-w-6xl mx-auto px-6 pb-24">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="p-8 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-blue-500/50 transition-colors hover:bg-slate-900/80 group">
+                    <div className="w-12 h-12 bg-blue-900/30 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <FileText className="w-6 h-6 text-blue-400" />
+                    </div>
+                    <h3 className="text-xl font-bold mb-2">Resume Analysis</h3>
+                    <p className="text-slate-400 text-sm">Upload your PDF. The AI reads your skills and tailors questions specifically to your experience.</p>
+                </div>
+
+                <div className="p-8 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-purple-500/50 transition-colors hover:bg-slate-900/80 group">
+                    <div className="w-12 h-12 bg-purple-900/30 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <Mic className="w-6 h-6 text-purple-400" />
+                    </div>
+                    <h3 className="text-xl font-bold mb-2">Voice Interaction</h3>
+                    <p className="text-slate-400 text-sm">Speak naturally. Our low-latency voice engine mimics a real human conversation.</p>
+                </div>
+
+                <div className="p-8 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-emerald-500/50 transition-colors hover:bg-slate-900/80 group">
+                    <div className="w-12 h-12 bg-emerald-900/30 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <Cpu className="w-6 h-6 text-emerald-400" />
+                    </div>
+                    <h3 className="text-xl font-bold mb-2">Smart Feedback</h3>
+                    <p className="text-slate-400 text-sm">Get a detailed score on Technical knowledge, Communication, and actionable tips to improve.</p>
+                </div>
+            </div>
+        </div>
+
+        {/* Footer */}
+        <footer className="border-t border-slate-800 bg-slate-950 py-12 text-center relative z-10">
+            <p className="text-slate-500 text-sm flex items-center justify-center gap-2">
+                Made with <Heart className="w-4 h-4 text-red-500 fill-red-500 animate-pulse" /> by <span className="text-white font-semibold">Shiva Balaji Kontham</span>
+            </p>
+            <p className="text-slate-600 text-xs mt-2">Built for Eightfold AI Agent Hackathon</p>
+        </footer>
     </div>
   );
 
@@ -59,6 +104,7 @@ export default function SetupPage() {
   const handleContextSubmit = async (e: React.ChangeEvent<HTMLInputElement> | null) => {
     const file = e ? e.target.files?.[0] : null;
     setIsProcessing(true);
+    setStatus(file ? "Analyzing Resume..." : "Loading Standard Questions...");
 
     const formData = new FormData();
     formData.append("user_id", user.id); 
@@ -71,6 +117,7 @@ export default function SetupPage() {
       router.push("/interview");
     } catch (err) {
       console.error(err);
+      setStatus("Error. Check Backend.");
       setIsProcessing(false);
     }
   };
@@ -84,7 +131,7 @@ export default function SetupPage() {
       <div className="max-w-2xl w-full space-y-8 relative z-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
         
         {/* Header */}
-        <header className="text-center">
+        <header className="text-center relative">
           <h1 className="text-4xl font-bold mb-2">
             Hello, <span className="bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">{user.firstName}</span>
           </h1>
