@@ -205,5 +205,18 @@ We have optimized the agent to handle specific user personas as requested:
 
 - Agent Response: Vapi's interruption handling allows the agent to politely interject and steer the conversation back to the Job Description.
 ---
+
+<img width="1433" height="1048" alt="image" src="https://github.com/user-attachments/assets/dab134d8-1a21-43a9-808d-eab916c59631" />
+
+---
+
+<img width="1485" height="1059" alt="image" src="https://github.com/user-attachments/assets/e83954c0-163e-4b90-919e-b36bcceac4c9" />
+
+---
+
+<img width="1711" height="928" alt="image" src="https://github.com/user-attachments/assets/cd66b1ee-2797-4b61-a5e7-202a7a726a1e" />
+
+---
+
 **✨ Interview smarter, get honest feedback, and advance your career — with Antriview! ✨**
 
