@@ -61,6 +61,48 @@ To implement **Intelligent Agentic Behavior**, Antriview uses the cognitive OODA
 
 ---
 
+### 📂 Project Folder Structure
+
+```bash
+antriview/
+├── backend/                     # Python FastAPI Server (The Brain)
+│   ├── app/
+│   │   ├── agents/              # AI Cognitive Modules
+│   │   │   ├── interviewer.py   # 8-Phase Logic & Question Generation
+│   │   │   ├── observer.py      # Sentiment Analysis & State Detection
+│   │   │   └── evaluator.py     # Post-session Scoring & Feedback
+│   │   ├── services/            # Core Services & Integrations
+│   │   │   ├── rag_engine.py    # ChromaDB Vector Store & Embeddings
+│   │   │   ├── database.py      # Firebase Firestore persistence
+│   │   │   ├── gemini.py        # Google Gemini API Wrapper
+│   │   │   └── extractor.py     # Resume PII & Skill Extraction
+│   │   └── main.py              # FastAPI Entry Point & Routes
+│   ├── chroma_db/               # Local Vector Database Storage
+│   ├── serviceAccountKey.json   # Firebase Admin Credentials (Ignored)
+│   ├── requirements.txt         # Python Dependencies
+│   └── .env                     # Backend Environment Variables
+│
+├── frontend/                    # Next.js Client (The Interface)
+│   ├── app/                     # Next.js App Router
+│   │   ├── context/             # Global State (InterviewContext)
+│   │   ├── dashboard/           # Analytics & History Page
+│   │   ├── interview/           # Active Voice/Chat Session Page
+│   │   ├── profile/             # User Profile Settings
+│   │   ├── layout.tsx           # Root Layout & Clerk Provider
+│   │   └── page.tsx             # Landing Page & Setup
+│   ├── components/              # Reusable UI Components
+│   │   └── Navbar.tsx           # Responsive Navigation
+│   ├── public/                  # Static Assets
+│   ├── .env.local               # Frontend Secrets (Clerk/Vapi)
+│   └── package.json             # Node Dependencies
+│
+├── .gitignore                   # Git Ignore Rules
+└── README.md                    # Documentation
+
+```
+
+---
+
 ## 4️⃣ **Design Decisions & Trade-Offs**
 
 #### 1. Why a Hybrid (Next.js + Python) Stack?
