@@ -18,7 +18,7 @@ The system follows a **structured interview protocol**, adapts its personality (
 
 ## 2️⃣ **Agentic Capabilities (🧠 The "Brain")**
 
-To implement **Intelligent Agentic Behavior**, Antriview uses a cognitive OODA loop (**Observe, Orient, Decide, Act**) for each conversation turn.
+To implement **Intelligent Agentic Behavior**, Antriview uses the cognitive OODA loop (**Observe, Orient, Decide, Act**) for each conversation turn.
 
 ### A. 🔄 **Finite State Machine (8-Phase Protocol)**
 
